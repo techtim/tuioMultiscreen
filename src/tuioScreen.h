@@ -13,7 +13,7 @@
 #include "ofxUI.h"
 #include "ofxTuioClient.h"
 
-class tuioScreen: public ofThread {
+class tuioScreen { //: public ofThread {
   public:
     tuioScreen(unsigned int _id, unsigned int port, unsigned int _width, unsigned int _height, ofPoint _pos = ofPoint(0,0));
     ~tuioScreen();
@@ -36,7 +36,7 @@ class tuioScreen: public ofThread {
     ofxUISuperCanvas *gui;
     void guiEvent(ofxUIEventArgs &e);
     
-    void threadedFunction();
+//    void threadedFunction();
     void update();
     void exit(ofEventArgs& e);
     const ofPoint getTouchPos();

@@ -89,8 +89,11 @@ void testApp::update(){
         setupScreens();
 
     for (int i=0; i<Screens.size(); i++) {
-        pos = Screens[i]->getTouchPos();
-        if (pos != ofPoint(-1,-1)){
+        Screens[i]->update();
+        mousePosOF = Screens[i]->getTouchPos();
+        if (mousePosOF != ofPoint(-1,-1)){
+            pos = mousePosOF;
+//            ofLog(OF_LOG_NOTICE, "SCREEN "+ofToString(i+1)+"  "+ofToString(pos));
             wasTouched = true;
             controlMouse(pos, true);
             break;
@@ -109,7 +112,7 @@ void testApp::draw(){
 //	myTuio.drawObjects();
     
     ofSetColor(255, 255,255,255);
-    ofRect(mousePosOF, 20, 20);
+//    ofRect(mousePosOF, 20, 20);
 
     float scaleX = ofGetWidth()/Width;
     float scaleY = ofGetHeight()/Height;
@@ -135,13 +138,13 @@ void testApp::controlMouse(ofPoint pos, bool isClicked) {
             CGEventRef mouseDownEv = CGEventCreateMouseEvent (NULL,kCGEventLeftMouseDown,pt,kCGMouseButtonLeft);
             CGEventPost (kCGHIDEventTap, mouseDownEv);
             CFRelease(mouseDownEv);
-            ofLog(OF_LOG_NOTICE, "DOWN");
+//            ofLog(OF_LOG_NOTICE, "DOWN");
         } else {
             //            cout << "Mouse Up!!+++++++-----------" << endl;
             CGEventRef mouseUpEv = CGEventCreateMouseEvent (NULL,kCGEventLeftMouseUp,pt,kCGMouseButtonLeft);
             CGEventPost (kCGHIDEventTap, mouseUpEv );
             CFRelease(mouseUpEv);
-            ofLog(OF_LOG_NOTICE, "UP");
+//            ofLog(OF_LOG_NOTICE, "UP");
         }
     }
     
@@ -193,7 +196,7 @@ void testApp::mouseMoved(int x, int y ){
 //--------------------------------------------------------------
 void testApp::mouseDragged(int x, int y, int button){
 
-    mousePosOF = ofPoint(x,y);
+//    mousePosOF = ofPoint(x,y);
 
 }
 
@@ -214,27 +217,27 @@ void testApp::windowResized(int w, int h){
 
 
 void testApp::touchDown(ofTouchEventArgs & touch){
-	cout << " cursor added: " + ofToString(touch.id)+
-	" X: "+ofToString(touch.x)+
-	" Y: "+ofToString(touch.y)
-	<< endl;
-    controlMouse(ofPoint(touch.x, touch.y), true);
+//	cout << " cursor added: " + ofToString(touch.id)+
+//	" X: "+ofToString(touch.x)+
+//	" Y: "+ofToString(touch.y)
+//	<< endl;
+//    controlMouse(ofPoint(touch.x, touch.y), true);
 	
 }
 
 void testApp::touchUp(ofTouchEventArgs & touch){
-	ofLog(OF_LOG_VERBOSE, " cursor removed: " + ofToString(touch.id)+
-	 " X: "+ofToString(touch.x)+
-	 " Y: "+ofToString(touch.y)
-      );
-    controlMouse(ofPoint(touch.x, touch.y), false);
+//	ofLog(OF_LOG_VERBOSE, " cursor removed: " + ofToString(touch.id)+
+//	 " X: "+ofToString(touch.x)+
+//	 " Y: "+ofToString(touch.y)
+//      );
+//    controlMouse(ofPoint(touch.x, touch.y), false);
 }
 
 void testApp::touchMoved(ofTouchEventArgs & touch){
-	cout << " cursor updated: " + ofToString(touch.id)+
-	 " X: "+ofToString(touch.x)+
-	 " Y: "+ofToString(touch.y)
-	 << endl;
+//	cout << " cursor updated: " + ofToString(touch.id)+
+//	 " X: "+ofToString(touch.x)+
+//	 " Y: "+ofToString(touch.y)
+//	 << endl;
     
     controlMouse(ofPoint(touch.x, touch.y), true);
 }

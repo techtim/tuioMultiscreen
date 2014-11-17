@@ -35,6 +35,7 @@ tuioScreen::tuioScreen(unsigned int __id, unsigned int _port, unsigned int _widt
     gui->setAutoUpdate(true);
     
     load();
+    port = guiPort;
 
     gui->autoSizeToFitWidgets();
     gui->getFontSmall()->loadFont("GUI/Helvetica.ttf", 8);
@@ -42,7 +43,9 @@ tuioScreen::tuioScreen(unsigned int __id, unsigned int _port, unsigned int _widt
     Tuio.start(port);
     
     ofAddListener(ofEvents().exit, this, &tuioScreen::exit);
-    startThread();
+
+//    startThread();
+    
 //    ofAddListener(gui->newGUIEvent, this, &Column::guiEvent);
     ofAddListener(ofEvents().mousePressed, this, &tuioScreen::mousePressed);
     ofAddListener(ofEvents().mouseDragged, this, &tuioScreen::mouseDragged);
@@ -67,11 +70,12 @@ void tuioScreen::setHeight(const int height){
 }
 
 void tuioScreen::update(){
+//    if (!bEnabled) return;
     if (port != static_cast<unsigned int>(guiPort)) {
-        oscLock.lock();
+//        oscLock.lock();
         port = static_cast<unsigned int>(guiPort);
         Tuio.start(port);
-        oscLock.unlock();
+//        oscLock.unlock();
     }
     Tuio.getMessage();
 
@@ -82,9 +86,18 @@ void tuioScreen::update(){
         for (std::list<ofxTuioCursor*>::iterator it=list.begin(); it != list.end(); it++) {
             //        (*it)->getSessionId()
             //                ofLog(OF_LOG_NOTICE, ofToString((*it)->getSessionId())+":  X= "+ofToString((*it)->getPosition().getX())+ " Y= "+ofToString((*it)->getPosition().getY()));
-            float x = region.x+(bInvertX ? 1-(*it)->getPosition().getX() : (*it)->getPosition().getX())*region.width;
-            float y = region.y+(bInvertY ? 1-(*it)->getPosition().getY() : (*it)->getPosition().getY())*region.height;
-            touchPos = bSwitchXY ? ofPoint(y, x) : ofPoint(x, y);
+//            float x = region.x+(bInvertX ? 1-(*it)->getPosition().getX() : (*it)->getPosition().getX())*region.width;
+//            float y = region.y+(bInvertY ? 1-(*it)->getPosition().getY() : (*it)->getPosition().getY())*region.height;
+            float x,y;
+            if (!bSwitchXY) {
+                x = region.x+(bInvertX ? 1-(*it)->getPosition().getX() : (*it)->getPosition().getX())*region.width;
+                y = region.y+(bInvertY ? 1-(*it)->getPosition().getY() : (*it)->getPosition().getY())*region.height;
+            } else {
+                y = region.y+(bInvertX ? 1-(*it)->getPosition().getX() : (*it)->getPosition().getX())*region.height;
+                x = region.x+(bInvertY ? 1-(*it)->getPosition().getY() : (*it)->getPosition().getY())*region.width;
+            }
+//            touchPos = bSwitchXY ? ofPoint(y, x) : ofPoint(x, y);
+                touchPos = ofPoint(x, y);
             break;
         }
     }
@@ -148,27 +161,27 @@ void tuioScreen::mouseReleased(ofMouseEventArgs & mouse) {
 }
 
 
-void tuioScreen::threadedFunction(){
-    while(isThreadRunning()){
-        lock();
-//        oscLock.lock();
-        update();
-
-//        oscLock.unlock();
-        unlock();
-        
-        ofSleepMillis(1);
-    }
-}
+//void tuioScreen::threadedFunction(){
+//    while(isThreadRunning()){
+//        lock();
+////        oscLock.lock();
+//        update();
+//
+////        oscLock.unlock();
+//        unlock();
+//        
+//        ofSleepMillis(1);
+//    }
+//}
 
 void tuioScreen::exit(ofEventArgs& e){
-    lock();
+//    lock();
     
     ofRemoveListener(ofEvents().exit, this, &tuioScreen::exit);
     gui->disable();
 
-    unlock();
+//    unlock();
     
     //	ofLogNotice("DurationController") << "waiting for thread on exit";
-    waitForThread(true);
+//    waitForThread(true);
 }
