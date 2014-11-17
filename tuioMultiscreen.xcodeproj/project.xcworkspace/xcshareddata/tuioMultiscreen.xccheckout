@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>13E8B974-EF91-4D07-A085-9A6A1EAF3117</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>007FBC1B650388E1825ACF397000A981AADD7017</key>
+		<string>https://github.com/hideyukisaito/ofxOsc.git</string>
+		<key>7E804D925461714118DB355C65BC964B41D94376</key>
+		<string>https://github.com/rezaali/ofxUI.git</string>
+		<key>E405B7BB2A09A6AEBFC7DABE78D91B8B66657ADA</key>
+		<string>https://github.com/patriciogonzalezvivo/ofxTuio.git</string>
+	</dict>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>007FBC1B650388E1825ACF397000A981AADD7017</key>
+		<string>ofxOsc/</string>
+		<key>7E804D925461714118DB355C65BC964B41D94376</key>
+		<string>ofxUI/</string>
+		<key>E405B7BB2A09A6AEBFC7DABE78D91B8B66657ADA</key>
+		<string>ofxTuio/</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/patriciogonzalezvivo/ofxTuio.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>E405B7BB2A09A6AEBFC7DABE78D91B8B66657ADA</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>007FBC1B650388E1825ACF397000A981AADD7017</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxOsc</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E405B7BB2A09A6AEBFC7DABE78D91B8B66657ADA</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxTuio</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>7E804D925461714118DB355C65BC964B41D94376</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxUI</string>
+		</dict>
+	</array>
+</dict>
+</plist>
