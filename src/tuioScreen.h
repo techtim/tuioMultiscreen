@@ -26,6 +26,10 @@ class tuioScreen: public ofThread {
 
     void draw(float scaleX = 1.f, float scaleY = 1.f);
 
+    void mousePressed(ofMouseEventArgs & mouse);
+    void mouseDragged(ofMouseEventArgs & mouse);
+    void mouseReleased(ofMouseEventArgs & mouse);
+
     void save();
     void load();
     
@@ -41,9 +45,11 @@ class tuioScreen: public ofThread {
     ofRectangle region, drawRegion;
     bool bInvertX, bInvertY;
     bool bSwitchXY;
-    bool bEnabled, bShowGui;
+    bool bEnabled, bShowGui, bClicked;
 
     ofPoint touchPos;
+    
+    ofVec2f mouseClickPos, regionClickPos;
     
     ofMutex oscLock;
     

@@ -11,11 +11,11 @@
 tuioScreen::tuioScreen(unsigned int __id, unsigned int _port, unsigned int _width, unsigned int _height, ofPoint _pos):
     _id(__id), port(_port),
     region(_pos.x, _pos.y, _width, _height),
-    bInvertX(false), bInvertY(false), bSwitchXY(false), bEnabled(false)
+    bInvertX(false), bInvertY(false), bSwitchXY(false), bEnabled(false), bClicked(false), bShowGui(true)
 {
     drawRegion = region;
     guiPort = port;
-    bShowGui = true;
+    
     gui = new ofxUISuperCanvas(ofToString(_id), 0,0,50,50);
     gui->setGlobalSliderHeight(5);
     //    gui->addTextInput("host", udpHost, 50.f);
@@ -44,8 +44,9 @@ tuioScreen::tuioScreen(unsigned int __id, unsigned int _port, unsigned int _widt
     ofAddListener(ofEvents().exit, this, &tuioScreen::exit);
     startThread();
 //    ofAddListener(gui->newGUIEvent, this, &Column::guiEvent);
-//    ofAddListener(ofEvents().mousePressed, this, &Column::mousePressed);
-//    ofAddListener(ofEvents().mouseDragged, this, &Column::mouseDragged);
+    ofAddListener(ofEvents().mousePressed, this, &tuioScreen::mousePressed);
+    ofAddListener(ofEvents().mouseDragged, this, &tuioScreen::mouseDragged);
+    ofAddListener(ofEvents().mouseReleased, this, &tuioScreen::mouseReleased);
 }
 
 tuioScreen::~tuioScreen(){;;}
@@ -90,6 +91,7 @@ void tuioScreen::update(){
     else {
         touchPos = ofPoint(-1,-1);
     }
+    list.clear();
 }
 
 const ofPoint tuioScreen::getTouchPos() {
@@ -124,6 +126,27 @@ void tuioScreen::save() {
 void tuioScreen::load() {
     gui->loadSettings("screen-"+ofToString(_id));
 }
+
+void tuioScreen::mousePressed(ofMouseEventArgs & mouse) {
+    if (!drawRegion.inside(mouse.x,mouse.y)) return;
+    if (gui->getRect()->inside(mouse.x,mouse.y)) return;
+    bClicked = true;
+    mouseClickPos = ofVec2f(mouse.x,mouse.y);
+    regionClickPos = ofVec2f(region.x, region.y);
+}
+
+void tuioScreen::mouseDragged(ofMouseEventArgs & mouse) {
+    if (!bClicked) return;
+    
+    ofVec2f mouseDragDist = ofVec2f(mouse.x,mouse.y)-mouseClickPos;
+    region.x = regionClickPos.x+mouseDragDist.x;
+    region.y = regionClickPos.y+mouseDragDist.y;
+}
+
+void tuioScreen::mouseReleased(ofMouseEventArgs & mouse) {
+    bClicked = false;
+}
+
 
 void tuioScreen::threadedFunction(){
     while(isThreadRunning()){
