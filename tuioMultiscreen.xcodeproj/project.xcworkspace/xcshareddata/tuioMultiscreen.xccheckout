@@ -24,13 +24,13 @@
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>007FBC1B650388E1825ACF397000A981AADD7017</key>
-		<string>../../../../../addons/ofxOsc</string>
+		<string>../../../addons/ofxOsc</string>
 		<key>1FF3FDB550CB6DCAB2E38154240C49071158C74E</key>
 		<string>../..</string>
 		<key>7E804D925461714118DB355C65BC964B41D94376</key>
-		<string>../../../../../addons/ofxUI</string>
+		<string>../../../addons/ofxUI</string>
 		<key>E405B7BB2A09A6AEBFC7DABE78D91B8B66657ADA</key>
-		<string>../../../../../addons/ofxTuio</string>
+		<string>../../../addons/ofxTuio</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>github.com:techtim/tuioMultiscreen.git</string>

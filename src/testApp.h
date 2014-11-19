@@ -41,7 +41,7 @@ public:
 
     unsigned int oscPort;
 
-    bool bClicked, currentClicked, bControl;
+    bool bClicked, currentClicked, bControl, bDragDown;
     ofPoint pos, currentPos, mousePosOF;
     
     bool bEnabled;

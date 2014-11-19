@@ -23,7 +23,8 @@ void testApp::setup(){
 	
     bShowGui = true;
     bEnabled = false;
-    
+    bDragDown = true;
+
     Width = SCREEN_W, Height = SCREEN_H;
     
     guiScreenNumber = screenNumber = TUIO_NUM;
@@ -32,6 +33,7 @@ void testApp::setup(){
     gui->setGlobalSliderHeight(5);
     //    gui->addTextInput("host", udpHost, 50.f);
     gui->addToggle("active", &bControl);
+    gui->addToggle("mouse drag + down", &bDragDown);
 //    gui->addToggle("invert", &bInvert);
 //    gui->addToggle("switch XY", &bSwitchXY);
     //    gui->addNumberDialer("pix", 0.5, 10, &pixelsInLed, 1)->setDrawOutline(true);
@@ -68,23 +70,7 @@ void testApp::setupScreens(){
 void testApp::update(){
 
     bool wasTouched = false;
-//    for (int i=0; i<Tuios.size(); i++) {
-//        Tuios[i]->getMessage();
-//        list<ofxTuioCursor*> list = Tuios[i]->getTuioCursors();
-//        
-//        if (list.size() > 0) {
-//            
-//            for (std::list<ofxTuioCursor*>::iterator it=list.begin(); it != list.end(); it++) {
-//        //        (*it)->getSessionId()
-////                ofLog(OF_LOG_NOTICE, ofToString((*it)->getSessionId())+":  X= "+ofToString((*it)->getPosition().getX())+ " Y= "+ofToString((*it)->getPosition().getY()));
-//                pos = ofPoint(Width/TUIO_NUM*i+(*it)->getPosition().getX()*Width/TUIO_NUM, (*it)->getPosition().getY()*Height);
-//                wasTouched = true;
-//                controlMouse(pos, true);
-//                break;
-//            
-//            }
-//        }
-//    }
+
     if (Screens.size() != static_cast<size_t>(guiScreenNumber))
         setupScreens();
 
@@ -153,14 +139,20 @@ void testApp::controlMouse(ofPoint pos, bool isClicked) {
         CGEventRef mouseMoveEv;
         if (currentClicked) {
             mouseMoveEv = CGEventCreateMouseEvent (NULL,kCGEventLeftMouseDragged,pt,kCGMouseButtonLeft) ;
+            CGEventPost (kCGHIDEventTap, mouseMoveEv);
+            if (bDragDown) {
+                CGEventRef mouseDownEv = CGEventCreateMouseEvent (NULL,kCGEventLeftMouseDown,pt,kCGMouseButtonLeft);
+                CGEventPost (kCGHIDEventTap, mouseDownEv);
+                CFRelease(mouseDownEv);
+            }
         }
         else {
             mouseMoveEv = CGEventCreateMouseEvent (NULL, kCGEventMouseMoved, pt, kCGMouseButtonLeft);
+            CGEventPost (kCGHIDEventTap, mouseMoveEv);
         }
-        CGEventPost (kCGHIDEventTap, mouseMoveEv);
+        
         CFRelease(mouseMoveEv);
     }
-    
     
 }
 
