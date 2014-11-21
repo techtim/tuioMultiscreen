@@ -117,14 +117,21 @@ void testApp::controlMouse(ofPoint pos, bool isClicked) {
     CGPoint pt;
     pt.x = pos.x; pt.y = pos.y;
     
+    if (currentPos != pos) {
+        currentPos = pos;
+        CGEventRef mouseMoveEv = CGEventCreateMouseEvent (NULL,kCGEventLeftMouseDragged,pt,kCGMouseButtonLeft) ;
+        CGEventPost (kCGHIDEventTap, mouseMoveEv);
+        CFRelease(mouseMoveEv);
+    }
+    
     if (currentClicked != isClicked) {
         currentClicked = isClicked;
         if (isClicked) {
-//            //            cout << "Mouse Down!!+++++++" << endl;
+            //            cout << "Mouse Down!!+++++++" << endl;
             CGEventRef mouseDownEv = CGEventCreateMouseEvent (NULL,kCGEventLeftMouseDown,pt,kCGMouseButtonLeft);
             CGEventPost (kCGHIDEventTap, mouseDownEv);
             CFRelease(mouseDownEv);
-//            ofLog(OF_LOG_NOTICE, "DOWN");
+            ofLog(OF_LOG_NOTICE, "DOWN");
         } else {
             //            cout << "Mouse Up!!+++++++-----------" << endl;
             CGEventRef mouseUpEv = CGEventCreateMouseEvent (NULL,kCGEventLeftMouseUp,pt,kCGMouseButtonLeft);
@@ -134,25 +141,25 @@ void testApp::controlMouse(ofPoint pos, bool isClicked) {
         }
     }
     
-    if (currentPos != pos) {
-        currentPos = pos;
-        CGEventRef mouseMoveEv;
-        if (currentClicked) {
-            mouseMoveEv = CGEventCreateMouseEvent (NULL,kCGEventLeftMouseDragged,pt,kCGMouseButtonLeft) ;
-            CGEventPost (kCGHIDEventTap, mouseMoveEv);
-            if (bDragDown) {
-                CGEventRef mouseDownEv = CGEventCreateMouseEvent (NULL,kCGEventLeftMouseDown,pt,kCGMouseButtonLeft);
-                CGEventPost (kCGHIDEventTap, mouseDownEv);
-                CFRelease(mouseDownEv);
-            }
-        }
-        else {
-            mouseMoveEv = CGEventCreateMouseEvent (NULL, kCGEventMouseMoved, pt, kCGMouseButtonLeft);
-            CGEventPost (kCGHIDEventTap, mouseMoveEv);
-        }
-        
-        CFRelease(mouseMoveEv);
-    }
+//    if (currentPos != pos) {
+//        currentPos = pos;
+//        CGEventRef mouseMoveEv;
+//        if (currentClicked) {
+//            mouseMoveEv = CGEventCreateMouseEvent (NULL,kCGEventLeftMouseDragged,pt,kCGMouseButtonLeft) ;
+//            CGEventPost (kCGHIDEventTap, mouseMoveEv);
+//            if (bDragDown) {
+//                CGEventRef mouseDownEv = CGEventCreateMouseEvent (NULL,kCGEventLeftMouseDown,pt,kCGMouseButtonLeft);
+//                CGEventPost (kCGHIDEventTap, mouseDownEv);
+//                CFRelease(mouseDownEv);
+//            }
+//        }
+//        else {
+//            mouseMoveEv = CGEventCreateMouseEvent (NULL, kCGEventMouseMoved, pt, kCGMouseButtonLeft);
+//            CGEventPost (kCGHIDEventTap, mouseMoveEv);
+//        }
+//        
+//        CFRelease(mouseMoveEv);
+//    }
     
 }
 
